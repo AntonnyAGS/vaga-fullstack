@@ -1,4 +1,5 @@
 const {Schema, model} = require ('mongoose');
+const mongoosePaginate = require ('mongoose-paginate');
 
 const PokeSchema = new Schema({
     name: {
