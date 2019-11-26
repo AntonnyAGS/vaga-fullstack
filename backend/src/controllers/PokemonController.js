@@ -1,5 +1,7 @@
 const axios = require('axios');
 const Pokemon = require('../models/Pokemon');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = {
   async store(req, res) {
@@ -31,42 +33,54 @@ module.exports = {
       cp40,
       cp39 } = req.body;
     const { filename } = req.file;
-    const poke = await Pokemon.create({
-      name,
-      pokedexNumber,
-      image: filename,
-      generation,
-      evolutionStage,
-      evolved,
-      familyId,
-      crossGen,
-      type1,
-      type2,
-      weather1,
-      weather2,
-      statTotal,
-      atk,
-      def,
-      sta,
-      legendary,
-      aquireable,
-      spawns,
-      raidable,
-      hatchable,
-      shiny,
-      nest,
-      newPoke,
-      notGettable,
-      futureEvolve,
-      cp40,
-      cp39
-    })
 
+    
+      const poke = await Pokemon.create({
+        name,
+        pokedexNumber,
+        image: filename,
+        generation,
+        evolutionStage,
+        evolved,
+        familyId,
+        crossGen,
+        type1,
+        type2,
+        weather1,
+        weather2,
+        statTotal,
+        atk,
+        def,
+        sta,
+        legendary,
+        aquireable,
+        spawns,
+        raidable,
+        hatchable,
+        shiny,
+        nest,
+        newPoke,
+        notGettable,
+        futureEvolve,
+        cp40,
+        cp39
+    });
     return res.status(201).json(poke);
   },
   async index(req, res) {
     const pokes = await Pokemon.find();
     return res.json(pokes);
+  },
+  async find(req,res){
+    try{
+      const poke = await Pokemon.findById(req.params.id);
+      return res.json(poke);
+    }
+    catch(e){
+      return res.status(404).json({
+        message: 'Não foi possível encontrar um Pokemon no id: ' + req.params.id
+      })
+    }
   },
   async update(req, res) {
     const { filename } = req.file;
@@ -103,22 +117,26 @@ module.exports = {
         cp39: req.body.cp39
       })
     }
-    catch(e){
-      return res.status(404).send({
+    catch (e) {
+      return res.status(404).json({
         message: 'Erro ao atualizar Pokemon com o MongoID: ' + req.params.id
       });
     }
     return res.status(200).send();
   },
-  async delete(req, res){
-    try {
-      const poke = await Pokemon.findByIdAndDelete(req.params.id);
+  async delete(req, res) {
+    try{
+      const poke = await Pokemon.findById(req.params.id);
+      const filename = poke.image;
+      const destination = path.resolve(__dirname, '..', '..', 'uploads/'+filename);
+      await fs.unlinkSync(destination);
+      await Pokemon.deleteOne(poke);
     }
     catch(e){
-      return res.status(404).send({
-        message: 'Erro ao deletar Pokemon com o MongoID: ' + req.params.id
-      });
+      res.status(400).json({
+        message: 'Não foi possível deletar Pokemon no id: ' + req.params.id
+      })
     }
-    return res.status(200).send(); 
+    return res.status(200).json();
   }
 };

@@ -10,6 +10,7 @@ const upload = multer(uploadConfig);
 
 routes.post('/pokemon',upload.single('filename'), PokeController.store);
 routes.get('/pokemon', PokeController.index);
+routes.get('/pokemon/:id', PokeController.find);
 routes.put('/pokemon/:id',upload.single('filename'), PokeController.update);
 routes.delete('/pokemon/:id', PokeController.delete);
 
