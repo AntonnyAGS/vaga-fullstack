@@ -1,0 +1,11 @@
+.pokeCard{
+    background-color:#f0f4ff;
+    padding-top: 10px;
+    height:400px;
+    display: flex;
+    flex-direction: column;
+}
+.pokeCard:hover img {
+    transform: translateY(-5px);
+    transition: all 0.2s;
+  }
