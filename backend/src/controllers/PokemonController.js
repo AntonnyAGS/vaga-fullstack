@@ -86,7 +86,13 @@ module.exports = {
     const { filename } = req.file;
 
     try {
-      const poke = await Pokemon.findByIdAndUpdate(req.params.id, {
+      const poke = await Pokemon.findById(req.params.id);
+      if (!poke){
+        return res.status(404).json({
+          message: 'Erro ao atualizar Pokemon com o MongoID: ' + req.params.id
+        });
+      }
+       await Pokemon.updateOne(poke, {
         name: req.body.name,
         pokedexNumber: req.body.pokedexNumber,
         image: filename,
@@ -138,5 +144,12 @@ module.exports = {
       })
     }
     return res.status(200).json();
+  },
+  async page(req, res){
+      const { page } = req.params;
+      const { limit, search="", searchBy="name", order='desc', orderBy='createdAt' } = req.query;
+      const poke = await Pokemon.paginate({[searchBy]:{ $regex: '.*' + search + '.*' }}, {page: parseInt(page), limit: parseInt(limit)});
+
+      res.json(poke.docs);
   }
 };

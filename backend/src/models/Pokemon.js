@@ -38,8 +38,13 @@ const PokeSchema = new Schema({
     cp39: Number
 },{
     timestamps: true,
-});
+    toJSON:{
+        virtuals: true
+    } 
+}
+);
 PokeSchema.virtual('image_url').get(function(){
     return `http:localhost:3333/files/${this.image}`
 })
+PokeSchema.plugin(mongoosePaginate); 
 module.exports = model('Pokemon', PokeSchema);
