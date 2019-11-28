@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header';
-import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Form, Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../../services/api';
 
-export default function Create() {
+export default function Create({history}) {
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
   const [pokedexNumber, setPokedexNumber] = useState('');
@@ -73,7 +73,9 @@ export default function Create() {
           break;
       case 'formGridFutureEvolve':
           setFutureEvolve(value);
-          break;        
+          break;
+      default:
+        break;        
     }
     
   }
@@ -109,6 +111,7 @@ export default function Create() {
 
 
     await api.post('/pokemon', data);
+    history.push(`/`);
   }
   return (
     
@@ -159,7 +162,7 @@ export default function Create() {
           <Row>
             <Form.Group as={Col} sm={12} md={3} controlId="formGridType1">
               <Form.Label>Tipo1:</Form.Label>
-              <Form.Control  value={type1} onChange={event => setType1(event.target.value)} placeholder="Pokemon's type 1" />
+              <Form.Control  value={type1} required onChange={event => setType1(event.target.value)} placeholder="Pokemon's type 1" />
             </Form.Group>
             <Form.Group as={Col} sm={12} md={3} controlId="formGridType2">
               <Form.Label>Tipo2:</Form.Label>

@@ -47,3 +47,8 @@ Após terminar o desafio, você pode solicitar um pull request para a branch mas
 Só! Mas se estiver motivado e quiser ser diferencial, tente preparar o projeto para ser executado de maneira prática, usando alguma ferramenta que facilite isso (ex: npm, yarn, docker, etc...). 
 
 Boa sorte! :)
+
+## Resposta:
+Foi desenvolvido no back end: CRUD completo, metodo de paginação e search.
+Recebi o teste na sexta porém só vi no sabádo e tinha prova essa semana na faculdade então não tive muito tempo para desenvolver o front, portanto, foi desenvolvido no front end: Listagem completa, criar um novo Pokemon, detalhar Pokemon e pesquisa pelo nome.
+Continuarei desenvolvendo as funcionalidades e assim que terminar, farei um novo pull request.

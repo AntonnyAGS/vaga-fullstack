@@ -149,7 +149,11 @@ module.exports = {
       const { page } = req.params;
       const { limit, search="", searchBy="name", order='desc', orderBy='createdAt' } = req.query;
       const poke = await Pokemon.paginate({[searchBy]:{ $regex: '.*' + search + '.*' }}, {page: parseInt(page), limit: parseInt(limit)});
-
+      if (search == ""){
+        res.json();
+      }
+      else{
       res.json(poke.docs);
+      }
   }
 };

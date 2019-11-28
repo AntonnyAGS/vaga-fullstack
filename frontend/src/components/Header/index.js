@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, NavItem, Image, Container } from 'react-bootstrap';
+import { Nav, Image, Container } from 'react-bootstrap';
 import Logo from '../../assets/pokemon.webp';
 import './index.css';
 import { Link } from 'react-router-dom';
@@ -23,12 +23,7 @@ export default function Header() {
           <Nav.Link as={Link} to='/create' eventKey="link-1">Create Pokemon</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-2">Categories</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-3">
-            Search
-      </Nav.Link>
+          <Nav.Link as={Link} to='/search' eventKey="link-1">Search Pokemon's</Nav.Link>
         </Nav.Item>
       </Nav>
 

@@ -1,0 +1,9 @@
+.imageDetail{
+    max-width:300px;
+}
+.mainContainer{
+    border:1px solid lightgray;
+    padding-top:10px;
+    padding-bottom:10px;
+    border-radius:10px;
+}
